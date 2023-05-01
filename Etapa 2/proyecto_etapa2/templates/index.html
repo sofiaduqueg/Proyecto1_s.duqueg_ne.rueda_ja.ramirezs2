@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Análisis de sentimientos</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/assets/img/Seneca_Imagen.png" rel="icon">
+  <link href="static/assets/img/Seneca_Imagen.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <div class="log">
+        <div class="col-lg-8 d-flex align-items-center justify-content-center about-img">
+          <img src="static/assets/img/LogoG3_1.png" data-gallery="portfolioGallery" class="portfolio-lightbox" style="max-height: 80px; width: auto; display: block;">
+        </div>
+      </div>
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>Análisis de sentimientos de películas</h1>
+          <h2>Te invitamos a que escribas tu opinión sobre una película y a cambio, te proporcionaremos una valoración de si la opinión contiene un sentimiento positivo o negativo.</h2>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img">
+            <img src="static/assets/img/MovieGirl.png" class="img-fluid w-100 animated" alt="" style="max-width: 75%;">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <!-- ======= Footer ======= -->
+	
+  <footer id="footer">
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>¡Cuéntanos sobre una película!</h4>
+            <p>Recuerda escribir la review en español.</p>
+            <form action="/analisis_sentimiento/" method="post">
+              <input type="text" name="rw" placeholder="Escribe tu review aquí"><br><br>
+              <input type="submit" value="Enviar">
+            </form>
+          </div>
+        </div>
+        <div id="resultado" ></div> <!-- Mostrar resultado -->
+      </div>
+    </div>
+    
+ 
+
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Viva la tecnologIA</span></strong>.
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="static/assets/vendor/aos/aos.js"></script>
+  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="static/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/assets/js/main.js"></script>
+
+  <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevenir el envío del formulario
+        const formData = new FormData(form);
+        const response = await fetch('/analisis_sentimiento/', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        const resultadoDiv = document.querySelector('#resultado');
+        if (data.review == '1') {
+            resultadoDiv.textContent = 'El sentimiento asociado a la reseña es: POSITIVO';
+        } else {
+            resultadoDiv.textContent = 'El sentimiento asociado a la reseña es: NEGATIVO';
+        }
+    });
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const resultadoDiv = document.getElementById('resultado');
+  resultadoDiv.style.fontSize = '24px';
+  resultadoDiv.style.margin = '15px';
+  resultadoDiv.style.padding = '0';
+  resultadoDiv.style.lineHeight = '1';
+  resultadoDiv.style.fontWeight = '600';
+  });
+  </script>
+
+</body>
+
+</html>
